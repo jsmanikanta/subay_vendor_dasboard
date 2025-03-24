@@ -7,7 +7,7 @@ const AllProducts = () => {
   const productsHandler = async()=>{
     const firmId = localStorage.getItem('firmId');
     try {
-            const response = await fetch(`${API_PATH}/product/${firmId}`);
+            const response = await fetch(`${API_PATH}/product/${localStorage.getItem('firmId')}`);
             const newProductsData = await response.json();
             setProducts(newProductsData.products);
             console.log(newProductsData);
