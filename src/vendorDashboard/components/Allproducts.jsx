@@ -7,10 +7,17 @@ const AllProducts = () => {
   const productsHandler = async()=>{
     const firmId = localStorage.getItem('firmId');
     try {
+<<<<<<< HEAD
       const response = await fetch(`${API_PATH}/product/${firmId}`);
       const newProductsData = await response.json();
       setProducts(newProductsData.products);
       console.log(newProductsData);
+=======
+            const response = await fetch(`${API_PATH}/product/${localStorage.getItem('firmId')}`);
+            const newProductsData = await response.json();
+            setProducts(newProductsData.products);
+            console.log(newProductsData);
+>>>>>>> d933c023d2e9765a891a723f4fa322d4757ae10e
     } catch (error) {
         console.error("failed to fetch products", error);
         alert('failed to fetch products')
