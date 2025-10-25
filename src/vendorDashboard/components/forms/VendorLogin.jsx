@@ -28,7 +28,6 @@ function VendorLogin({ showWelcome }) {
       }
     } catch (error) {
       console.error("Error:", error);
-      
     }
   };
 

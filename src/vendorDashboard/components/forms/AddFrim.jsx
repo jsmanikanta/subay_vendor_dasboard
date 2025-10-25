@@ -1,37 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { API_PATH } from "../../data/apiPath";
 
 function AddFirm() {
   const [firmName, setFirmName] = useState("");
   const [area, setArea] = useState("");
-  const [category, setCategory] = useState([]); // Ensure category is an array
-  const [region, setRegion] = useState([]); // Ensure region is an array
+  const [category, setCategory] = useState([]);
+  const [region, setRegion] = useState([]); //region is an array
   const [offer, setOffer] = useState("");
-  const [image, setImage] = useState(null); // Ensure image is initially null
+  const [image, setImage] = useState(null); //image is initially null
 
   // Handle category selection (allows multiple)
   const handleCategoryChange = (event) => {
     const value = event.target.value;
-        if(category.includes(value)){
-          setCategory(category.filter.call((item)=>item!==value))
-        } else{
-          setCategory([...category,value])
-        }
+    if (category.includes(value)) {
+      setCategory(category.filter.call((item) => item !== value));
+    } else {
+      setCategory([...category, value]);
+    }
   };
 
   // Handle region selection (allows multiple)
-  const handleRegionChange = (event)=>{
-      const value = event.target.value;
-        if(region.includes(value)){
-          setRegion(region.filter((item)=> item !== value));
-        }else{
-          setRegion([...region, value])
-        }
-  }
+  const handleRegionChange = (event) => {
+    const value = event.target.value;
+    if (region.includes(value)) {
+      setRegion(region.filter((item) => item !== value));
+    } else {
+      setRegion([...region, value]);
+    }
+  };
 
   // Handle image upload
   const handleImageUpload = async (event) => {
-    const selectedImage = event.target.files[0]; // Fix: Use files[0]
+    const selectedImage = event.target.files[0];
     setImage(selectedImage);
   };
 
@@ -40,48 +40,46 @@ function AddFirm() {
     e.preventDefault(); // Prevent page reload
 
     try {
-      const loginToken = localStorage.getItem('token');
+      const loginToken = localStorage.getItem("token");
       if (!loginToken) {
         console.error("User not found");
       }
 
       const formData = new FormData();
-      formData.append('firmName', firmName);
-      formData.append('area', area);
-      formData.append('offer', offer);
+      formData.append("firmName", firmName);
+      formData.append("area", area);
+      formData.append("offer", offer);
       category.forEach((value) => formData.append("category[]", value));
-      region.forEach((value) => formData.append("region[]",value));
-      formData.append('image', image);
+      region.forEach((value) => formData.append("region[]", value));
+      formData.append("image", image);
 
       const response = await fetch(`${API_PATH}/firm/addfirm`, {
         method: "POST",
-        headers: { 
-          'token': loginToken 
-          },
-        body: formData
+        headers: {
+          token: loginToken,
+        },
+        body: formData,
       });
 
       const data = await response.json();
 
       if (response.ok) {
         console.log("Firm added successfully", data);
-         setFirmName("");
-          setArea("")
-          setCategory([]);
-          setRegion([]);
-          setOffer("");
-          setImage(null);
+        setFirmName("");
+        setArea("");
+        setCategory([]);
+        setRegion([]);
+        setOffer("");
+        setImage(null);
         alert("Firm added");
-
-      } else if(data.message === "vendor can have only one firm"){
-              alert("Firm Exists. Only 1 firm can be added  ")
-          } else{
-              alert('Failed to add Firm')
-          }
-          // adding firm id to local storage so that we can use this in our add product
-        console.log("Firmid",data.firmId);
-        localStorage.setItem("firmId",data.firmId);
-
+      } else if (data.message === "vendor can have only one firm") {
+        alert("Firm Exists. Only 1 firm can be added  ");
+      } else {
+        alert("Failed to add Firm");
+      }
+      // adding firm id to local storage so that we can use this in our add product
+      console.log("Firmid", data.firmId);
+      localStorage.setItem("firmId", data.firmId);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -89,11 +87,11 @@ function AddFirm() {
 
   return (
     <div className="firmsection">
-      <form className='tableForm' onSubmit={handleFirmSubmit}>
+      <form className="tableForm" onSubmit={handleFirmSubmit}>
         <label>Resturant Name</label>
         <input
           type="text"
-          name='firmName'
+          name="firmName"
           value={firmName}
           onChange={(e) => setFirmName(e.target.value)}
         />
@@ -101,7 +99,7 @@ function AddFirm() {
         <label>Area</label>
         <input
           type="text"
-          name='area'
+          name="area"
           value={area}
           onChange={(e) => setArea(e.target.value)}
         />
@@ -115,7 +113,7 @@ function AddFirm() {
             <input
               type="checkbox"
               value="veg"
-              checked={category.includes('veg')}
+              checked={category.includes("veg")}
               onChange={handleCategoryChange}
             />
           </div>
@@ -124,7 +122,7 @@ function AddFirm() {
             <input
               type="checkbox"
               value="non-veg"
-              checked={category.includes('non-veg')}
+              checked={category.includes("non-veg")}
               onChange={handleCategoryChange}
             />
           </div>
@@ -137,7 +135,7 @@ function AddFirm() {
             <input
               type="checkbox"
               value="bakery"
-              checked={region.includes('bakery')}
+              checked={region.includes("bakery")}
               onChange={handleRegionChange}
             />
           </div>
@@ -146,7 +144,7 @@ function AddFirm() {
             <input
               type="checkbox"
               value="chinese"
-              checked={region.includes('chinese')}
+              checked={region.includes("chinese")}
               onChange={handleRegionChange}
             />
           </div>
@@ -155,7 +153,7 @@ function AddFirm() {
             <input
               type="checkbox"
               value="south-indian"
-              checked={region.includes('south-indian')}
+              checked={region.includes("south-indian")}
               onChange={handleRegionChange}
             />
           </div>
@@ -164,7 +162,7 @@ function AddFirm() {
             <input
               type="checkbox"
               value="north-indian"
-              checked={region.includes('north-indian')}
+              checked={region.includes("north-indian")}
               onChange={handleRegionChange}
             />
           </div>
@@ -173,7 +171,7 @@ function AddFirm() {
         <label>Offer</label>
         <input
           type="text"
-          name='offer'
+          name="offer"
           value={offer}
           onChange={(e) => setOffer(e.target.value)}
         />

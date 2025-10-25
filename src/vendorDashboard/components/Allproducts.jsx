@@ -7,10 +7,10 @@ const AllProducts = () => {
   const productsHandler = async()=>{
     const firmId = localStorage.getItem('firmId');
     try {
-            const response = await fetch(`${API_PATH}/product/${firmId}`);
-            const newProductsData = await response.json();
-            setProducts(newProductsData.products);
-            console.log(newProductsData);
+      const response = await fetch(`${API_PATH}/product/${firmId}`);
+      const newProductsData = await response.json();
+      setProducts(newProductsData.products);
+      console.log(newProductsData);
     } catch (error) {
         console.error("failed to fetch products", error);
         alert('failed to fetch products')
@@ -24,13 +24,13 @@ useEffect(()=>{
 
   const deleteProductById = async(productId)=>{
     try {
-            const response = await fetch(`${API_PATH}/product/${productId}`,{
-                method: 'DELETE'
-            })
-        if(response.ok){
-            setProducts(products.filter(product =>product._id !== productId));
-            confirm("are you sure, you want to delete?")
-            alert("Product deleted Successfully")
+      const response = await fetch(`${API_PATH}/product/${productId}`,{
+          method: 'DELETE'
+      })
+      if(response.ok){
+      setProducts(products.filter(product =>product._id !== productId));
+      confirm("are you sure, you want to delete?")
+      alert("Product deleted Successfully")
         }
     } catch (error) {
         console.error('Failed to delete product');

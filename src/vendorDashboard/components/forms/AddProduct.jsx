@@ -18,7 +18,7 @@ function AddProduct() {
 
   // handle bestseller
   const handleBestSeller = (event) => {
-    const value = event.target.value === 'true';
+    const value = event.target.value === "true";
     setBestSeller(value);
   };
 
@@ -90,14 +90,14 @@ function AddProduct() {
             <input
               type="checkbox"
               value="veg"
-              checked={category.includes('veg')}
+              checked={category.includes("veg")}
               onChange={handleCategoryChange}
             />
             <label>Non-Veg</label>
             <input
               type="checkbox"
               value="non-veg"
-              checked={category.includes('non-veg')}
+              checked={category.includes("non-veg")}
               onChange={handleCategoryChange}
             />
           </div>
@@ -106,17 +106,19 @@ function AddProduct() {
         <div className="inputsContainer">
           <div className="checkboxContainer">
             <label>Yes</label>
-            <input 
-            type="radio" 
-            value="true" 
-            checked={bestSeller===true}
-            onChange={handleBestSeller} />
+            <input
+              type="radio"
+              value="true"
+              checked={bestSeller === true}
+              onChange={handleBestSeller}
+            />
             <label>No</label>
-            <input 
-            type="radio" 
-            value="false" 
-            checked={bestSeller===false}
-            onChange={handleBestSeller} />
+            <input
+              type="radio"
+              value="false"
+              checked={bestSeller === false}
+              onChange={handleBestSeller}
+            />
           </div>
         </div>
         <label>Description</label>
